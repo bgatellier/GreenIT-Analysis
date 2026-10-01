@@ -17,8 +17,6 @@ export default defineConfig({
         ],
         action: {
             default_icon: "icons/logo-48.png",
-            default_title: "GreenIT-Analysis",
-            default_popup: "menu.html"
         },
         default_locale: "en"
     }
