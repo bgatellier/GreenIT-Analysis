@@ -15,9 +15,6 @@ export default defineConfig({
         host_permissions: [
             "*://*/*"
         ],
-        action: {
-            default_icon: "icons/logo-48.png",
-        },
         default_locale: "en"
     }
 });
