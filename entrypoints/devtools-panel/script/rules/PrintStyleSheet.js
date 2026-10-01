@@ -1,6 +1,4 @@
-rulesManager.registerRule(createPrintStyleSheetRule(), "frameMeasuresReceived");
-
-function createPrintStyleSheetRule() {
+export function createPrintStyleSheetRule() {
     return {
         complianceLevel: 'C',
         id: "PrintStyleSheet",

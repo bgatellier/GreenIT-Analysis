@@ -1,8 +1,6 @@
 import { isFontResource } from "../utils";
 
-rulesManager.registerRule(createUseStandardTypefacesRule(), "harReceived");
-
-function createUseStandardTypefacesRule() {
+export function createUseStandardTypefacesRule() {
     return {
         complianceLevel: 'A',
         id: "UseStandardTypefaces",

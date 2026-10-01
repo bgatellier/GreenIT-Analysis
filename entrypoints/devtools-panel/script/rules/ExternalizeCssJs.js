@@ -1,6 +1,4 @@
-rulesManager.registerRule(createExternalizeCssJsRule(), "frameMeasuresReceived");
-
-function createExternalizeCssJsRule() {
+export function createExternalizeCssJsRule() {
     return {
         complianceLevel: 'A',
         id: "ExternalizeCssJs",

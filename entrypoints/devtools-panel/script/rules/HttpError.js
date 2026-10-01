@@ -1,6 +1,4 @@
-rulesManager.registerRule(createHttpErrorRule(), "harReceived");
-
-function createHttpErrorRule() {
+export function createHttpErrorRule() {
     return {
         complianceLevel: 'A',
         id: "HttpError",

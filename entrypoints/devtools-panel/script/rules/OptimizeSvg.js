@@ -1,8 +1,6 @@
 import { isSvgUrl, isSvgOptimized } from "../utils";
 
-rulesManager.registerRule(createOptimizeSvgRule(), "resourceContentReceived");
-
-function createOptimizeSvgRule() {
+export function createOptimizeSvgRule() {
     return {
         complianceLevel: 'A',
         id: "OptimizeSvg",

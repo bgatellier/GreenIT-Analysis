@@ -1,6 +1,4 @@
-rulesManager.registerRule(createUseHttp2Rule(), "harReceived");
-
-function createUseHttp2Rule() {
+export function createUseHttp2Rule() {
     return {
         complianceLevel: 'A',
         id: "UseHTTP2",
