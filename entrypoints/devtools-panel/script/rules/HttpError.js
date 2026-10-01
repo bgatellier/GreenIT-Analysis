@@ -19,7 +19,7 @@ export function createHttpErrorRule() {
                 }
             });
             if (this.specificMeasures.errorNumber > 0) this.complianceLevel = 'C';
-            this.comment = chrome.i18n.getMessage("rule_HttpError_Comment", String(this.specificMeasures.errorNumber));
+            this.comment = browser.i18n.getMessage("rule_HttpError_Comment", String(this.specificMeasures.errorNumber));
         },
 
         getSpecificMeasures: function () {

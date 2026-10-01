@@ -22,7 +22,7 @@ export function createDomainsNumberRule() {
         this.detailComment += domain + "<br>";
       });
 
-      this.comment = chrome.i18n.getMessage(
+      this.comment = browser.i18n.getMessage(
         "rule_DomainsNumber_Comment",
         String(this.specificMeasures.domains.length),
       );
