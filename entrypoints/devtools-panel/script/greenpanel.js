@@ -16,6 +16,7 @@
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 import { isNetworkResource, isDataResource, debug } from "./utils";
+import { computeEcoIndex, getEcoIndexGrade, computeGreenhouseGasesEmissionfromEcoIndex , computeWaterConsumptionfromEcoIndex} from "./ecoIndex";
 
 let backgroundPageConnection;
 let currentRulesChecker;
