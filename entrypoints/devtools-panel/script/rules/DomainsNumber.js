@@ -1,6 +1,4 @@
-rulesManager.registerRule(createDomainsNumberRule(), "harReceived");
-
-function createDomainsNumberRule() {
+export function createDomainsNumberRule() {
   return {
     complianceLevel: "A",
     id: "DomainsNumber",

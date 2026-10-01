@@ -14,6 +14,24 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+import { createAddExpiresOrCacheControlHeadersRule } from "./rules/AddExpiresOrCacheControlHeaders";
+import { createCompressHttpRule } from "./rules/CompressHttp";
+import { createDomainsNumberRule } from "./rules/DomainsNumber";
+import { createDontResizeImageInBrowserRule } from "./rules/DontResizeImageInBrowser";
+import { createExternalizeCssJsRule } from "./rules/ExternalizeCssJs";
+import { createHttpErrorRule } from "./rules/HttpError";
+import { createHttpRequestsRule } from "./rules/HttpRequests";
+import { createImageDownloadedNotDisplayedRule } from "./rules/ImageDownloadedNotDisplayed";
+import { createMinifiedCssJsRule } from "./rules/MinifiedCssJs";
+import { createNoCookieForStaticRessourcesRule } from "./rules/NoCookieForStaticRessources";
+import { createNoRedirectRule } from "./rules/NoRedirect";
+import { createOptimizeBitmapImagesRule } from "./rules/OptimizeBitmapImages";
+import { createOptimizeSvgRule } from "./rules/OptimizeSvg";
+import { createPrintStyleSheetRule } from "./rules/PrintStyleSheet";
+import { createSocialNetworkButtonRule } from "./rules/SocialNetworkButton";
+import { createStyleSheetsRule } from "./rules/StyleSheets";
+import { createUseHttp2Rule } from "./rules/UseHttp2";
+import { createUseStandardTypefacesRule } from "./rules/UseStandardTypefaces";
 
 let rulesManager = new RulesManager();
 
@@ -94,3 +112,22 @@ function RulesManager() {
     }
   }
 }
+
+rulesManager.registerRule(createAddExpiresOrCacheControlHeadersRule(), "harReceived");
+rulesManager.registerRule(createCompressHttpRule(), "harReceived");
+rulesManager.registerRule(createDomainsNumberRule(), "harReceived");
+rulesManager.registerRule(createDontResizeImageInBrowserRule(), "frameMeasuresReceived");
+rulesManager.registerRule(createExternalizeCssJsRule(), "frameMeasuresReceived");
+rulesManager.registerRule(createHttpErrorRule(), "harReceived");
+rulesManager.registerRule(createHttpRequestsRule(), "harReceived");
+rulesManager.registerRule(createImageDownloadedNotDisplayedRule(), "frameMeasuresReceived");
+rulesManager.registerRule(createMinifiedCssJsRule(), "resourceContentReceived");
+rulesManager.registerRule(createNoCookieForStaticRessourcesRule(), "harReceived");
+rulesManager.registerRule(createNoRedirectRule(), "harReceived");
+rulesManager.registerRule(createOptimizeBitmapImagesRule(), "harReceived");
+rulesManager.registerRule(createOptimizeSvgRule(), "resourceContentReceived");
+rulesManager.registerRule(createPrintStyleSheetRule(), "frameMeasuresReceived");
+rulesManager.registerRule(createSocialNetworkButtonRule(), "harReceived");
+rulesManager.registerRule(createStyleSheetsRule(), "harReceived");
+rulesManager.registerRule(createUseHttp2Rule(), "harReceived");
+rulesManager.registerRule(createUseStandardTypefacesRule(), "harReceived");

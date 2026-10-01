@@ -1,8 +1,6 @@
 import { isStaticRessource, getCookiesLength } from "../utils";
 
-rulesManager.registerRule(createNoCookieForStaticRessourcesRule(), "harReceived");
-
-function createNoCookieForStaticRessourcesRule() {
+export function createNoCookieForStaticRessourcesRule() {
     return {
         complianceLevel: 'A',
         id: "NoCookieForStaticRessources",
