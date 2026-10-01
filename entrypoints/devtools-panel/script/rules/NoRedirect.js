@@ -1,8 +1,6 @@
 import { isHttpRedirectCode } from "../utils";
 
-rulesManager.registerRule(createNoRedirectRule(), "harReceived");
-
-function createNoRedirectRule() {
+export function createNoRedirectRule() {
     return {
         complianceLevel: 'A',
         id: "NoRedirect",
