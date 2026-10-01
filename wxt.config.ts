@@ -6,7 +6,8 @@ export default defineConfig({
         name: 'GreenIT-Analysis',
         homepage_url: "https://github.com/cnumr/GreenIT-Analysis",
         icons: {
-            48: "icons/logo-48.png"
+            48: "icons/logo-48.png",
+            128: "icons/logo-128.png"
         },
         permissions: [
             "activeTab","tabs","browsingData","scripting"
