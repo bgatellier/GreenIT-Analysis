@@ -137,7 +137,7 @@ function showEcoRuleOnUI(rule) {
 function viewHistory() {
   if (chrome.tabs) chrome.tabs.query({ currentWindow: true }, loadHistoryTab);
   // chrome.tabs is not accessible in old chromium version 
-  else window.open("history.html");
+  else window.open(browser.runtime.getURL("/histo.html"));
 }
 
 
@@ -153,7 +153,7 @@ function loadHistoryTab(tabs) {
     chrome.tabs.update(history_tab.id, { active: true });
   }
   // else create a new tab
-  else chrome.tabs.create({ url: "history.html" });
+  else chrome.tabs.create({ url: browser.runtime.getURL("/histo.html") });
 }
 
 
