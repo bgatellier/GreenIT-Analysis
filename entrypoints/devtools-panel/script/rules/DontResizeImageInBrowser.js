@@ -1,3 +1,5 @@
+import { isSvgUrl } from "../utils";
+
 rulesManager.registerRule(createDontResizeImageInBrowserRule(), "frameMeasuresReceived");
 
 function createDontResizeImageInBrowserRule() {

@@ -127,12 +127,12 @@ const httpCompressionTokens = [
 const httpRedirectCodes = [301, 302, 303, 307];
 
 // utils for cache rule 
-function isStaticRessource(resource) {
+export function isStaticRessource(resource) {
     const contentType = getResponseHeaderFromResource(resource, "content-type");
     return staticResources.some(value => value.test(contentType));
 }
 
-function isFontResource(resource) {
+export function isFontResource(resource) {
     const contentType = getResponseHeaderFromResource(resource, "content-type");
     if (font.some(value => value.test(contentType))) return true;
     // if not check url , because sometimes content-type is set to text/plain 
@@ -155,18 +155,18 @@ function getHeaderWithName(headers, headerName) {
     return headerValue;
 }
 
-function getResponseHeaderFromResource(resource, headerName) {
+export function getResponseHeaderFromResource(resource, headerName) {
     return getHeaderWithName(resource.response.headers, headerName);
 }
 
-function getCookiesLength(resource) {
+export function getCookiesLength(resource) {
     let cookies = getHeaderWithName(resource.request.headers, "cookie");
     if (cookies) return cookies.length;
     else return 0;
 }
 
 
-function hasValidCacheHeaders(resource) {
+export function hasValidCacheHeaders(resource) {
 
     const headers = resource.response.headers;
     let cache = {};
@@ -199,25 +199,25 @@ function hasValidCacheHeaders(resource) {
 
 
 // utils for compress rule 
-function isCompressibleResource(resource) {
+export function isCompressibleResource(resource) {
     if (resource.response.content.size <= 150) return false;
     const contentType = getResponseHeaderFromResource(resource, "content-type");
     return compressible.some(value => value.test(contentType));
 }
 
-function isResourceCompressed(resource) {
+export function isResourceCompressed(resource) {
     const contentEncoding = getResponseHeaderFromResource(resource, "content-encoding");
     return ((contentEncoding.length > 0) && (httpCompressionTokens.indexOf(contentEncoding.toLocaleLowerCase()) !== -1));
 }
 
 // utils for ETags rule 
-function isRessourceUsingETag(resource) {
+export function isRessourceUsingETag(resource) {
     const eTag = getResponseHeaderFromResource(resource, "ETag");
     if (eTag === "") return false;
     return true;
 }
 
-function getDomainFromUrl(url) {
+export function getDomainFromUrl(url) {
     var elements = url.split("//");
     if (elements[1] === undefined) return "";
     else {
@@ -241,7 +241,7 @@ function countChar(char, str) {
 /**
  * Detect minification for Javascript and CSS files
  */
-function isMinified(scriptContent) {
+export function isMinified(scriptContent) {
 
     if (!scriptContent) return true;
     if (scriptContent.length === 0) return true;
@@ -262,7 +262,7 @@ function isMinified(scriptContent) {
  * Detect network resources (data urls embedded in page is not network resource)
  *  Test with request.url as  request.httpVersion === "data"  does not work with old chrome version (example v55)
  */
-function isNetworkResource(harEntry) {
+export function isNetworkResource(harEntry) {
     return !(harEntry.request.url.startsWith("data"));
 }
 
@@ -270,17 +270,17 @@ function isNetworkResource(harEntry) {
  * Detect non-network resources (data urls embedded in page)
  *  Test with request.url as  request.httpVersion === "data"  does not work with old chrome version (example v55)
  */
-function isDataResource(harEntry) {
+export function isDataResource(harEntry) {
     return (harEntry.request.url.startsWith("data"));
 }
 
 
-function isHttpRedirectCode(code) {
+export function isHttpRedirectCode(code) {
     return httpRedirectCodes.some(value => value === code);
 }
 
 
-function getImageTypeFromResource(resource) {
+export function getImageTypeFromResource(resource) {
     const contentType = getResponseHeaderFromResource(resource, "content-type");
     if (contentType === "image/png") return "png";
     if (contentType === "image/jpeg") return "jpeg";
@@ -291,7 +291,7 @@ function getImageTypeFromResource(resource) {
 }
 
 
-function getMinOptimisationGainsForImage(pixelsNumber, imageSize, imageType) {
+export function getMinOptimisationGainsForImage(pixelsNumber, imageSize, imageType) {
 
     // difficult to get good compression when image is small , images less than 10Kb are considered optimized
     if (imageSize < 10000) return 0;
@@ -307,13 +307,13 @@ function getMinOptimisationGainsForImage(pixelsNumber, imageSize, imageType) {
     return Math.max(0, imageSize - imgMaxSize);
 }
 
-function isSvgUrl(url) {
+export function isSvgUrl(url) {
     if (url.endsWith(".svg")) return true;
     if (url.includes(".svg?")) return true;
     return false;
 }
 
-function isSvgOptimized(svgImage) {
+export function isSvgOptimized(svgImage) {
     if (svgImage.length < 1000) return true; // do not consider image < 1KB 
     if (svgImage.search(" <") === -1) return true;
     return false;
@@ -321,7 +321,7 @@ function isSvgOptimized(svgImage) {
 
 
 
-function getOfficialSocialButtonFormUrl(url) {
+export function getOfficialSocialButtonFormUrl(url) {
     if (url.includes("platform.twitter.com/widgets.js")) return "tweeter";
     if (url.includes("platform.linkedin.com/in.js")) return "linkedin";
     if (url.includes("assets.pinterest.com/js/pinit.js")) return "pinterest";
@@ -332,7 +332,7 @@ function getOfficialSocialButtonFormUrl(url) {
     return "";
 }
 
-function debug(lazyString) {
+export function debug(lazyString) {
     if (!DEBUG) return;
     const message = typeof lazyString === 'function' ? lazyString() : lazyString;
     console.log(`GreenIT-Analysis [DEBUG] ${message}\n`);
