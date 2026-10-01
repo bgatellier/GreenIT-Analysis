@@ -1,3 +1,5 @@
+import { getOfficialSocialButtonFormUrl } from "../utils";
+
 rulesManager.registerRule(createSocialNetworkButtonRule(), "harReceived");
 
 function createSocialNetworkButtonRule() {

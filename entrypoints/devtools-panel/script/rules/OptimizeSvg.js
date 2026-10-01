@@ -1,3 +1,5 @@
+import { isSvgUrl, isSvgOptimized } from "../utils";
+
 rulesManager.registerRule(createOptimizeSvgRule(), "resourceContentReceived");
 
 function createOptimizeSvgRule() {

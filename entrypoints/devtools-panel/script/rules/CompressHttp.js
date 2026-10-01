@@ -1,3 +1,5 @@
+import { isCompressibleResource, isResourceCompressed } from "../utils";
+
 rulesManager.registerRule(createCompressHttpRule(), "harReceived");
 
 function createCompressHttpRule() {

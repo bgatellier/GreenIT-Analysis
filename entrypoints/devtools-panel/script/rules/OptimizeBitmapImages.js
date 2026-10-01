@@ -1,3 +1,5 @@
+import { getImageTypeFromResource, getMinOptimisationGainsForImage } from "../utils";
+
 rulesManager.registerRule(createOptimizeBitmapImagesRule(), "harReceived");
 
 
