@@ -34,13 +34,13 @@ export function createDontResizeImageInBrowserRule() {
         check: function (measures) {
             measures.imagesResizedInBrowser.forEach(entry => {
                 if (!this.imgAnalysed.has(entry.src) && this.isRevelant(entry)) { // Do not count two times the same picture
-                    this.detailComment += chrome.i18n.getMessage("rule_DontResizeImageInBrowser_DetailComment",[entry.src,`${entry.naturalWidth}x${entry.naturalHeight}`,`${entry.clientWidth}x${entry.clientHeight}`]) + '<br>';
+                    this.detailComment += browser.i18n.getMessage("rule_DontResizeImageInBrowser_DetailComment",[entry.src,`${entry.naturalWidth}x${entry.naturalHeight}`,`${entry.clientWidth}x${entry.clientHeight}`]) + '<br>';
                     this.imgAnalysed.set(entry.src);
                     this.specificMeasures.imagesResizedInBrowserNumber += 1;
                 }
             });
             if (this.specificMeasures.imagesResizedInBrowserNumber > 0) this.complianceLevel = 'C';
-            this.comment = chrome.i18n.getMessage("rule_DontResizeImageInBrowser_Comment", String(this.specificMeasures.imagesResizedInBrowserNumber));
+            this.comment = browser.i18n.getMessage("rule_DontResizeImageInBrowser_Comment", String(this.specificMeasures.imagesResizedInBrowserNumber));
 
         },
 

@@ -19,7 +19,7 @@
 
 
 for ( const elem of document.querySelectorAll('[data-i18n]') ) {
-    let text = chrome.i18n.getMessage(elem.getAttribute('data-i18n'));
+    let text = browser.i18n.getMessage(elem.getAttribute('data-i18n'));
     if ( !text ) { continue; }
     elem.appendChild( document.createTextNode(text));
 }

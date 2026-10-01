@@ -65,7 +65,7 @@ export function RulesManager() {
 
   this.registerRule = function (ruleChecker, eventListener) {
     rulesId.push(ruleChecker.id);
-    if ((eventListener==="resourceContentReceived") && ((!chrome.devtools) || (!chrome.devtools.inspectedWindow.getResources))) notCompatibleRules.push(ruleChecker.id);
+    if ((eventListener==="resourceContentReceived") && ((!browser.devtools) || (!browser.devtools.inspectedWindow.getResources))) notCompatibleRules.push(ruleChecker.id);
     else {
       rulesChecker.set(ruleChecker.id, ruleChecker);
       let event = eventListeners.get(eventListener);
