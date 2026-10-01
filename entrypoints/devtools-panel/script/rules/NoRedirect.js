@@ -21,7 +21,7 @@ export function createNoRedirectRule() {
                 }
             });
             if (this.specificMeasures.redirectNumber > 1) this.complianceLevel = 'C';
-            this.comment = chrome.i18n.getMessage("rule_NoRedirect_Comment", String(this.specificMeasures.redirectNumber));
+            this.comment = browser.i18n.getMessage("rule_NoRedirect_Comment", String(this.specificMeasures.redirectNumber));
         },
 
         getSpecificMeasures: function () {
