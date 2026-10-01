@@ -1,3 +1,5 @@
+import { isStaticRessource, hasValidCacheHeaders } from "../utils";
+
 rulesManager.registerRule(createAddExpiresOrCacheControlHeadersRule(), "harReceived");
 
 function createAddExpiresOrCacheControlHeadersRule() {

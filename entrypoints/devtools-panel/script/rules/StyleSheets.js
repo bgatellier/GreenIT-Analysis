@@ -1,3 +1,5 @@
+import { getResponseHeaderFromResource } from "../utils";
+
 rulesManager.registerRule(createStyleSheetsRule(), "harReceived");
 
 function createStyleSheetsRule() {
