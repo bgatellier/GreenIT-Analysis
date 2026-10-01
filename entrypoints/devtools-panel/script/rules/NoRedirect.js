@@ -1,3 +1,5 @@
+import { isHttpRedirectCode } from "../utils";
+
 rulesManager.registerRule(createNoRedirectRule(), "harReceived");
 
 function createNoRedirectRule() {

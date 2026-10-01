@@ -1,3 +1,5 @@
+import { isStaticRessource, getCookiesLength } from "../utils";
+
 rulesManager.registerRule(createNoCookieForStaticRessourcesRule(), "harReceived");
 
 function createNoCookieForStaticRessourcesRule() {
