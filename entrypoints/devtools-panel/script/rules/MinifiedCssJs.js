@@ -1,3 +1,5 @@
+import { isMinified } from "../utils";
+
 rulesManager.registerRule(createMinifiedCssJsRule(), "resourceContentReceived");
 
 function createMinifiedCssJsRule() {
