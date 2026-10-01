@@ -1,6 +1,4 @@
-rulesManager.registerRule(createHttpRequestsRule(), "harReceived");
-
-function createHttpRequestsRule() {
+export function createHttpRequestsRule() {
   return {
     complianceLevel: "A",
     id: "HttpRequests",

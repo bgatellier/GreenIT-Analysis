@@ -1,8 +1,6 @@
 import { isCompressibleResource, isResourceCompressed } from "../utils";
 
-rulesManager.registerRule(createCompressHttpRule(), "harReceived");
-
-function createCompressHttpRule() {
+export function createCompressHttpRule() {
     return {
         complianceLevel: 'A',
         id: "CompressHttp",

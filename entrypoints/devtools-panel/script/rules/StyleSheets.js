@@ -1,8 +1,6 @@
 import { getResponseHeaderFromResource } from "../utils";
 
-rulesManager.registerRule(createStyleSheetsRule(), "harReceived");
-
-function createStyleSheetsRule() {
+export function createStyleSheetsRule() {
     return {
         complianceLevel: 'A',
         id: "StyleSheets",
