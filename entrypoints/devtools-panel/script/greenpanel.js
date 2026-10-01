@@ -90,8 +90,8 @@ function launchAnalyse() {
   measuresAcquisition = new MeasuresAcquisition(currentRulesChecker);
   measuresAcquisition.initializeMeasures();
 
-  let scriptToInject = "script/analyseFrame.js";
-  if (analyseBestPractices) scriptToInject ="script/analyseFrameWithBestPractices.js"
+  let scriptToInject = browser.runtime.getURL("/analyseFrame.js");
+  if (analyseBestPractices) scriptToInject =browser.runtime.getURL("/analyseFrameWithBestPractices.js")
   // Launch analyse via injection of a script in each frame of the current tab
   backgroundPageConnection.postMessage({
     clearBrowserCache: false,
