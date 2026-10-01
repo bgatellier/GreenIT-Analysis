@@ -4,7 +4,7 @@ export function createUseStandardTypefacesRule() {
     return {
         complianceLevel: 'A',
         id: "UseStandardTypefaces",
-        comment: chrome.i18n.getMessage("rule_UseStandardTypefaces_DefaultComment"),
+        comment: browser.i18n.getMessage("rule_UseStandardTypefaces_DefaultComment"),
         detailComment: "",
         specificMeasures: {
             totalFontsNumber: 0
@@ -29,7 +29,7 @@ export function createUseStandardTypefacesRule() {
             if (this.specificMeasures.totalFontsNumber > 2) this.complianceLevel = 'C';
             else if (this.specificMeasures.totalFontsNumber === 2) this.complianceLevel = 'B';
 
-            if (this.specificMeasures.totalFontsNumber > 0) this.comment = chrome.i18n.getMessage("rule_UseStandardTypefaces_Comment", String(this.specificMeasures.totalFontsNumber));
+            if (this.specificMeasures.totalFontsNumber > 0) this.comment = browser.i18n.getMessage("rule_UseStandardTypefaces_Comment", String(this.specificMeasures.totalFontsNumber));
         },
 
         getSpecificMeasures: function () {

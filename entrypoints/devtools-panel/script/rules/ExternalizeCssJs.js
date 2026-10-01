@@ -2,7 +2,7 @@ export function createExternalizeCssJsRule() {
     return {
         complianceLevel: 'A',
         id: "ExternalizeCssJs",
-        comment: chrome.i18n.getMessage("rule_ExternalizeCssJs_DefaultComment"),
+        comment: browser.i18n.getMessage("rule_ExternalizeCssJs_DefaultComment"),
         detailComment: "",
         specificMeasures: {
             inlineCssJsNumber: 0
@@ -13,7 +13,7 @@ export function createExternalizeCssJsRule() {
             if (this.specificMeasures.inlineCssJsNumber > 2) {
                 this.complianceLevel = 'C';
             }
-            if (this.specificMeasures.inlineCssJsNumber > 0) this.comment = chrome.i18n.getMessage("rule_ExternalizeCssJs_Comment", String(this.specificMeasures.inlineCssJsNumber));
+            if (this.specificMeasures.inlineCssJsNumber > 0) this.comment = browser.i18n.getMessage("rule_ExternalizeCssJs_Comment", String(this.specificMeasures.inlineCssJsNumber));
         },
 
         getSpecificMeasures: function () {

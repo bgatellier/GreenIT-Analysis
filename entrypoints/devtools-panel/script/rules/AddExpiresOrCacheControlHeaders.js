@@ -20,14 +20,14 @@ export function createAddExpiresOrCacheControlHeadersRule() {
                     this.specificMeasures.staticResources += 1;
                     if (hasValidCacheHeaders(entry)) {
                         this.specificMeasures.staticResourcesWithCache += 1;
-                    } else this.detailComment += chrome.i18n.getMessage("rule_AddExpiresOrCacheControlHeaders_DetailComment", entry.request.url) + '<br>';
+                    } else this.detailComment += browser.i18n.getMessage("rule_AddExpiresOrCacheControlHeaders_DetailComment", entry.request.url) + '<br>';
                 }
             });
 
             if (this.specificMeasures.staticResources > 0) {
                 if  (this.specificMeasures.staticResources - this.specificMeasures.staticResourcesWithCache > 0)  this.complianceLevel = 'C'
                 else this.complianceLevel = 'A';
-                this.comment = chrome.i18n.getMessage("rule_AddExpiresOrCacheControlHeaders_Comment",
+                this.comment = browser.i18n.getMessage("rule_AddExpiresOrCacheControlHeaders_Comment",
                     this.specificMeasures.staticResourcesWithCache + ' / ' +   this.specificMeasures.staticResources);
             }
         },

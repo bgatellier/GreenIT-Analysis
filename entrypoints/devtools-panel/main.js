@@ -64,7 +64,7 @@ function loadHTMLBestPractice(ruleId) {
   let html = "";
   html += "<td>";
   html += "<a href=\"#\" id=\"" + ruleId + "_Detail\" class=\"bestPracticeLink\">";
-  html += chrome.i18n.getMessage("rule_" + ruleId);
+  html += browser.i18n.getMessage("rule_" + ruleId);
   html += "</a>";
   html += "</td>";
   html += "<td style=\"width:30px\"> <img id=\"" + ruleId + "_status\" src=\"icons/A.png\"></td>";
@@ -77,7 +77,7 @@ function loadHTMLBestPractice(ruleId) {
 
   html = "";
   html += "<td colspan=\"3\">";
-  html += "<p class=\"bestPracticeDetail\">" + chrome.i18n.getMessage("rule_" + ruleId + "_DetailDescription"); "</p>";
+  html += "<p class=\"bestPracticeDetail\">" + browser.i18n.getMessage("rule_" + ruleId + "_DetailDescription"); "</p>";
   html += "</td>";
 
   newTR = document.createElement("tr");
@@ -102,7 +102,7 @@ function loadHTMLBestPractice(ruleId) {
 function setUnsupportedRuleAnalyse(ruleId) {
   console.log("ruleId=" + ruleId);
   document.getElementById(ruleId + "_status").src = "";
-  document.getElementById(ruleId + "_comment").innerHTML = chrome.i18n.getMessage("unsupportedRuleAnalyse");
+  document.getElementById(ruleId + "_comment").innerHTML = browser.i18n.getMessage("unsupportedRuleAnalyse");
 }
 
 
@@ -147,8 +147,8 @@ function showEcoRuleOnUI(rule) {
 }
 
 function viewHistory() {
-  if (chrome.tabs) chrome.tabs.query({ currentWindow: true }, loadHistoryTab);
-  // chrome.tabs is not accessible in old chromium version 
+  if (browser.tabs) browser.tabs.query({ currentWindow: true }, loadHistoryTab);
+  // browser.tabs is not accessible in old chromium version 
   else window.open(browser.runtime.getURL("/histo.html"));
 }
 
@@ -157,15 +157,15 @@ function loadHistoryTab(tabs) {
   var history_tab;
   // search for config tab
   for (let tab of tabs) {
-    if (tab.url.startsWith(chrome.runtime.getURL(""))) history_tab = tab;
+    if (tab.url.startsWith(browser.runtime.getURL(""))) history_tab = tab;
   }
   // config tab exits , put the focus on it
   if (history_tab) {
-    chrome.tabs.reload(history_tab.id);
-    chrome.tabs.update(history_tab.id, { active: true });
+    browser.tabs.reload(history_tab.id);
+    browser.tabs.update(history_tab.id, { active: true });
   }
   // else create a new tab
-  else chrome.tabs.create({ url: browser.runtime.getURL("/histo.html") });
+  else browser.tabs.create({ url: browser.runtime.getURL("/histo.html") });
 }
 
 
@@ -191,7 +191,7 @@ function initPanel() {
 }
 
 function openBackgroundPageConnection() {
-  backgroundPageConnection = chrome.runtime.connect({
+  backgroundPageConnection = browser.runtime.connect({
     name: "greenDevPanel-page"
   });
   backgroundPageConnection.onMessage.addListener((frameMeasures) => {
@@ -216,7 +216,7 @@ function handleResponseFromBackground(frameMeasures) {
 
 function clearBrowserCache()
 {
-  // calling the method chrome.browsingData.remove() from the devtool is not working for firefox 
+  // calling the method browser.browsingData.remove() from the devtool is not working for firefox 
   // we need to do it form the background script , so we send a message to the background script to do it   
   backgroundPageConnection.postMessage({
     clearBrowserCache: true
@@ -254,7 +254,7 @@ function launchAnalyse() {
   // Launch analyse via injection of a script in each frame of the current tab
   backgroundPageConnection.postMessage({
     clearBrowserCache: false,
-    tabId: chrome.devtools.inspectedWindow.tabId,
+    tabId: browser.devtools.inspectedWindow.tabId,
     scriptToInject: scriptToInject
   });
   measuresAcquisition.startMeasuring();
@@ -301,7 +301,7 @@ function MeasuresAcquisition(rules) {
 
       measures.printStyleSheetsNumber += frameMeasures.printStyleSheetsNumber;
       if (measures.inlineStyleSheetsNumber < frameMeasures.inlineStyleSheetsNumber) measures.inlineStyleSheetsNumber = frameMeasures.inlineStyleSheetsNumber;
-      if ((frameMeasures.inlineJsScript.length > 0) && (chrome.devtools.inspectedWindow.getResources)) {
+      if ((frameMeasures.inlineJsScript.length > 0) && (browser.devtools.inspectedWindow.getResources)) {
         const resourceContent = { 
           url:"inline js",
           type:"script",
@@ -321,7 +321,7 @@ function MeasuresAcquisition(rules) {
 
 
   const getNetworkMeasure = () => {
-    chrome.devtools.network.getHAR((har) => {
+    browser.devtools.network.getHAR((har) => {
 
       console.log("Start network measure...");
       // only account for network traffic, filtering resources embedded through data urls
@@ -369,7 +369,7 @@ function MeasuresAcquisition(rules) {
 
 
   function getResourcesMeasure() {
-    if (chrome.devtools.inspectedWindow.getResources) chrome.devtools.inspectedWindow.getResources((resources) => {
+    if (browser.devtools.inspectedWindow.getResources) browser.devtools.inspectedWindow.getResources((resources) => {
       resources.forEach(resource => {
         if (resource.url.startsWith("file") || resource.url.startsWith("http")) {
           if ((resource.type === 'script') || (resource.type === 'stylesheet') || (resource.type === 'image')) {

@@ -72,7 +72,7 @@ function appendLine(result_date, url, nbRequest, responsesSize, domSize, greenho
 
 	html = html + "</td> <a href=\"#\" id=\"delete_button" + line_number
 		+ "\" class=\"btn btn-primary btn-sm\"> <span class=\"glyphicon glyphicon-trash\"></span> "
-		+ chrome.i18n.getMessage("deleteButton") + "</a></td>";
+		+ browser.i18n.getMessage("deleteButton") + "</a></td>";
 
 	var newTR = document.createElement("tr");
 	newTR.id = "line" + line_number;
@@ -100,14 +100,14 @@ function delete_line(line_number_to_delete) {
 
 
 function delete_all() {
-	if (window.confirm(chrome.i18n.getMessage("deleteAllConfirmMessage"))) {
+	if (window.confirm(browser.i18n.getMessage("deleteAllConfirmMessage"))) {
 		localStorage.removeItem("analyse_history");
 		document.location.reload();
 	}
 }
 
 function create_csv() {
-	var csv = chrome.i18n.getMessage("csvColumnsLabel") + "\n" ;
+	var csv = browser.i18n.getMessage("csvColumnsLabel") + "\n" ;
 	analyse_history.forEach(function (analyse) {
 		const date = new Date(analyse.resultDate);
 		csv += date.toLocaleDateString() + " " + date.toLocaleTimeString() +
