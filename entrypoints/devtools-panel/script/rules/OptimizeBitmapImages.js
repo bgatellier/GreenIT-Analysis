@@ -1,9 +1,6 @@
 import { getImageTypeFromResource, getMinOptimisationGainsForImage } from "../utils";
 
-rulesManager.registerRule(createOptimizeBitmapImagesRule(), "harReceived");
-
-
-function createOptimizeBitmapImagesRule(){
+export function createOptimizeBitmapImagesRule(){
   return {
     complianceLevel: 'A',
     id: "OptimizeBitmapImages",

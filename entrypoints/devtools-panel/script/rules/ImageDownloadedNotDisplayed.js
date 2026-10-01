@@ -1,6 +1,4 @@
-rulesManager.registerRule(createImageDownloadedNotDisplayedRule(), "frameMeasuresReceived");
-
-function createImageDownloadedNotDisplayedRule() {
+export function createImageDownloadedNotDisplayedRule() {
     return {
         complianceLevel: 'A',
         id: "ImageDownloadedNotDisplayed",

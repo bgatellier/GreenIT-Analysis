@@ -1,8 +1,6 @@
 import { isSvgUrl } from "../utils";
 
-rulesManager.registerRule(createDontResizeImageInBrowserRule(), "frameMeasuresReceived");
-
-function createDontResizeImageInBrowserRule() {
+export function createDontResizeImageInBrowserRule() {
     return {
         complianceLevel: 'A',
             id: "DontResizeImageInBrowser",

@@ -1,8 +1,6 @@
 import { isMinified } from "../utils";
 
-rulesManager.registerRule(createMinifiedCssJsRule(), "resourceContentReceived");
-
-function createMinifiedCssJsRule() {
+export function createMinifiedCssJsRule() {
     return{
     complianceLevel: 'A',
     id: "MinifiedCssJs",

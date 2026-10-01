@@ -1,8 +1,6 @@
 import { getOfficialSocialButtonFormUrl } from "../utils";
 
-rulesManager.registerRule(createSocialNetworkButtonRule(), "harReceived");
-
-function createSocialNetworkButtonRule() {
+export function createSocialNetworkButtonRule() {
     return {
         complianceLevel: 'A',
         id: "SocialNetworkButton",
