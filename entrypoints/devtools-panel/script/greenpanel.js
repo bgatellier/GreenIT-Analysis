@@ -90,8 +90,8 @@ function launchAnalyse() {
   measuresAcquisition = new MeasuresAcquisition(currentRulesChecker);
   measuresAcquisition.initializeMeasures();
 
-  let scriptToInject = "script/analyseFrame.js";
-  if (analyseBestPractices) scriptToInject ="script/analyseFrameWithBestPractices.js"
+  let scriptToInject = "analyseFrame.js";
+  if (analyseBestPractices) scriptToInject = "analyseFrameWithBestPractices.js"
   // Launch analyse via injection of a script in each frame of the current tab
   backgroundPageConnection.postMessage({
     clearBrowserCache: false,
@@ -229,7 +229,7 @@ function MeasuresAcquisition(rules) {
 
     this.analyseContent = (code) => {
       // exclude from analyse the injected script 
-      if ((resourceToAnalyse.type === 'script') && (resourceToAnalyse.url.includes("script/analyseFrame.js"))) return;
+      if ((resourceToAnalyse.type === 'script') && (resourceToAnalyse.url.includes("analyseFrame.js"))) return;
 
       let resourceContent = {
         url: resourceToAnalyse.url,
