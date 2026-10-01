@@ -15,7 +15,7 @@ export function createHttpRequestsRule() {
           this.detailComment += entry.request.url + "<br>";
         });
       if (this.specificMeasures.nbRequest > 40) this.complianceLevel = "C";
-      this.comment = chrome.i18n.getMessage(
+      this.comment = browser.i18n.getMessage(
         "rule_HttpRequests_Comment",
         String(this.specificMeasures.nbRequest),
       );

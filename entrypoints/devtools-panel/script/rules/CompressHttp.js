@@ -19,7 +19,7 @@ export function createCompressHttpRule() {
                     this.specificMeasures.compressibleResourcesSize += entry.response.content.size;
                     if (isResourceCompressed(entry)) {
                         this.specificMeasures.compressibleResourcesCompressedSize += entry.response.content.size;
-                    } else this.detailComment += chrome.i18n.getMessage("rule_CompressHttp_DetailComment", `${entry.request.url} ${Math.round(entry.response.content.size / 100) / 10}`) + '<br>';
+                    } else this.detailComment += browser.i18n.getMessage("rule_CompressHttp_DetailComment", `${entry.request.url} ${Math.round(entry.response.content.size / 100) / 10}`) + '<br>';
                 }
             });
             if (this.specificMeasures.compressibleResourcesSize > 0) {
@@ -28,7 +28,7 @@ export function createCompressHttpRule() {
                     if (compressRatio < 90) this.complianceLevel = 'C'
                     else this.complianceLevel = 'B';
                 } else this.complianceLevel = 'A';
-                this.comment = chrome.i18n.getMessage("rule_CompressHttp_Comment",
+                this.comment = browser.i18n.getMessage("rule_CompressHttp_Comment",
                     String(Math.round(compressRatio * 10) / 10) + "%");
             }
         },
