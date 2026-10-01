@@ -33,10 +33,7 @@ import { createStyleSheetsRule } from "./rules/StyleSheets";
 import { createUseHttp2Rule } from "./rules/UseHttp2";
 import { createUseStandardTypefacesRule } from "./rules/UseStandardTypefaces";
 
-let rulesManager = new RulesManager();
-
-function RulesManager() {
-
+export function RulesManager() {
   let rulesId = [];
   let rulesChecker = new Map();
   let eventListeners = new Map();
@@ -44,6 +41,27 @@ function RulesManager() {
   eventListeners.set("harReceived", []);
   eventListeners.set("frameMeasuresReceived", []);
   eventListeners.set("resourceContentReceived", []);
+
+  this.registerRules = function() {
+    this.registerRule(createAddExpiresOrCacheControlHeadersRule(), "harReceived");
+    this.registerRule(createCompressHttpRule(), "harReceived");
+    this.registerRule(createDomainsNumberRule(), "harReceived");
+    this.registerRule(createDontResizeImageInBrowserRule(), "frameMeasuresReceived");
+    this.registerRule(createExternalizeCssJsRule(), "frameMeasuresReceived");
+    this.registerRule(createHttpErrorRule(), "harReceived");
+    this.registerRule(createHttpRequestsRule(), "harReceived");
+    this.registerRule(createImageDownloadedNotDisplayedRule(), "frameMeasuresReceived");
+    this.registerRule(createMinifiedCssJsRule(), "resourceContentReceived");
+    this.registerRule(createNoCookieForStaticRessourcesRule(), "harReceived");
+    this.registerRule(createNoRedirectRule(), "harReceived");
+    this.registerRule(createOptimizeBitmapImagesRule(), "harReceived");
+    this.registerRule(createOptimizeSvgRule(), "resourceContentReceived");
+    this.registerRule(createPrintStyleSheetRule(), "frameMeasuresReceived");
+    this.registerRule(createSocialNetworkButtonRule(), "harReceived");
+    this.registerRule(createStyleSheetsRule(), "harReceived");
+    this.registerRule(createUseHttp2Rule(), "harReceived");
+    this.registerRule(createUseStandardTypefacesRule(), "harReceived");
+  }
 
   this.registerRule = function (ruleChecker, eventListener) {
     rulesId.push(ruleChecker.id);
@@ -112,22 +130,3 @@ function RulesManager() {
     }
   }
 }
-
-rulesManager.registerRule(createAddExpiresOrCacheControlHeadersRule(), "harReceived");
-rulesManager.registerRule(createCompressHttpRule(), "harReceived");
-rulesManager.registerRule(createDomainsNumberRule(), "harReceived");
-rulesManager.registerRule(createDontResizeImageInBrowserRule(), "frameMeasuresReceived");
-rulesManager.registerRule(createExternalizeCssJsRule(), "frameMeasuresReceived");
-rulesManager.registerRule(createHttpErrorRule(), "harReceived");
-rulesManager.registerRule(createHttpRequestsRule(), "harReceived");
-rulesManager.registerRule(createImageDownloadedNotDisplayedRule(), "frameMeasuresReceived");
-rulesManager.registerRule(createMinifiedCssJsRule(), "resourceContentReceived");
-rulesManager.registerRule(createNoCookieForStaticRessourcesRule(), "harReceived");
-rulesManager.registerRule(createNoRedirectRule(), "harReceived");
-rulesManager.registerRule(createOptimizeBitmapImagesRule(), "harReceived");
-rulesManager.registerRule(createOptimizeSvgRule(), "resourceContentReceived");
-rulesManager.registerRule(createPrintStyleSheetRule(), "frameMeasuresReceived");
-rulesManager.registerRule(createSocialNetworkButtonRule(), "harReceived");
-rulesManager.registerRule(createStyleSheetsRule(), "harReceived");
-rulesManager.registerRule(createUseHttp2Rule(), "harReceived");
-rulesManager.registerRule(createUseStandardTypefacesRule(), "harReceived");
