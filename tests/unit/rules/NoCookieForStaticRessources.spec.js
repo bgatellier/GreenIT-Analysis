@@ -1,5 +1,7 @@
-describe("Rules => NoCookieForStaticRessources.js", function () {
+import { createNoCookieForStaticRessourcesRule } from "@/entrypoints/devtools-panel/script/rules/NoCookieForStaticRessources";
+import { beforeEach, describe, expect, it } from "vitest";
 
+describe("Rules => NoCookieForStaticRessources.js", function () {
     let rule;
     beforeEach(function () {
         rule = createNoCookieForStaticRessourcesRule();
@@ -73,10 +75,4 @@ describe("Rules => NoCookieForStaticRessources.js", function () {
         rule.check(measures);
         expect(rule.complianceLevel).toEqual('A');
     });
-
-    afterEach(function () {
-    });
 });
-
-
-

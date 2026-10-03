@@ -16,10 +16,8 @@ web-ext.config.ts
 .idea
 .DS_Store
 *.suo
+*.iml
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
-
-.scannerwork
-*.iml

@@ -1,5 +1,7 @@
-describe("Rules => UseStandardTypefaces.js", function () {
+import { createUseStandardTypefacesRule } from "@/entrypoints/devtools-panel/script/rules/UseStandardTypefaces";
+import { beforeEach, describe, expect, it } from "vitest";
 
+describe("Rules => UseStandardTypefaces.js", function () {
     let rule;
     beforeEach(function () {
         rule = createUseStandardTypefacesRule();
@@ -22,9 +24,6 @@ describe("Rules => UseStandardTypefaces.js", function () {
         rule.check(measures);
         expect(rule.complianceLevel).toEqual('A');
     });
-
-
-
 
     it(" 1 specific font file  should return  A", function () {
         const measures = {
@@ -71,8 +70,6 @@ describe("Rules => UseStandardTypefaces.js", function () {
         expect(rule.complianceLevel).toEqual('B');
     });
 
-
-
     it(" 3 specific font files  should return  C", function () {
         const measures = {
             entries:
@@ -109,6 +106,3 @@ describe("Rules => UseStandardTypefaces.js", function () {
         expect(rule.complianceLevel).toEqual('C');
     });
 });
-
-
-

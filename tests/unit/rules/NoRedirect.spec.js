@@ -1,5 +1,7 @@
-describe("Rules => NoRedirect.js", function () {
+import { createNoRedirectRule } from "@/entrypoints/devtools-panel/script/rules/NoRedirect";
+import { beforeEach, describe, expect, it } from "vitest";
 
+describe("Rules => NoRedirect.js", function () {
     let rule;
     beforeEach(function () {
         rule = createNoRedirectRule();
@@ -37,7 +39,6 @@ describe("Rules => NoRedirect.js", function () {
         expect(rule.complianceLevel).toEqual('A');
     });
 
-
     it(" 2 redirect, it should return C", function () {
         const measures = {
             entries:
@@ -61,10 +62,4 @@ describe("Rules => NoRedirect.js", function () {
         rule.check(measures);
         expect(rule.complianceLevel).toEqual('C');
     });
-
-    afterEach(function () {
-    });
 });
-
-
-

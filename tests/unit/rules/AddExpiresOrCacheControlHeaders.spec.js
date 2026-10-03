@@ -1,5 +1,7 @@
-describe("Rules => AddExpiresOrCacheControlHeadersRule.js", function () {
+import { createAddExpiresOrCacheControlHeadersRule } from "@/entrypoints/devtools-panel/script/rules/AddExpiresOrCacheControlHeaders";
+import { beforeEach, describe, expect, it } from "vitest";
 
+describe("Rules => AddExpiresOrCacheControlHeadersRule.js", function () {
     let rule;
     beforeEach(function () {
         rule = createAddExpiresOrCacheControlHeadersRule();
@@ -136,8 +138,4 @@ describe("Rules => AddExpiresOrCacheControlHeadersRule.js", function () {
         rule.check(measures);
         expect(rule.complianceLevel).toEqual('C');
     });
-
-
-
-
 });

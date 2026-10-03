@@ -1,5 +1,7 @@
-describe("Rules => StyleSheets.js", function () {
+import { createStyleSheetsRule } from "@/entrypoints/devtools-panel/script/rules/StyleSheets";
+import { beforeEach, describe, expect, it } from "vitest";
 
+describe("Rules => StyleSheets.js", function () {
     let rule;
     beforeEach(function () {
         rule = createStyleSheetsRule();
@@ -261,8 +263,4 @@ describe("Rules => StyleSheets.js", function () {
         rule.check(measures);
         expect(rule.complianceLevel).toEqual('C');
     });
-
 });
-
-
-

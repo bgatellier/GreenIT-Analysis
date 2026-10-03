@@ -1,11 +1,8 @@
+import { computeEcoIndex, getEcoIndexGrade, computeGreenhouseGasesEmissionfromEcoIndex, computeWaterConsumptionfromEcoIndex } from "@/entrypoints/devtools-panel/script/ecoIndex";
+import { describe, expect, it } from "vitest";
 
 describe("ecoIndex.js", function() {
-
   describe("#function computeEcoIndex", function() {
-    
-    beforeEach(function() {	
-    });
-	
     it(" 100 , 100 ,100 should return 72", function() {
       expect(Math.round(computeEcoIndex(100,100,100))).toEqual(72);
     });
@@ -22,7 +19,6 @@ describe("ecoIndex.js", function() {
       expect(Math.round(computeEcoIndex(200,200,10000))).toEqual(46);
     });
 
-
     it(" 2355 , 267 ,2493 should return 10", function() {
       expect(Math.round(computeEcoIndex(2355,267,2493))).toEqual(10);
     });
@@ -38,17 +34,9 @@ describe("ecoIndex.js", function() {
     it(" 0 , 0 , 0 should return 100", function() {
       expect(Math.round(computeEcoIndex(0,0,0))).toEqual(100);
     });
-
-
-    afterEach(function() {
-    });
   });
 
   describe("#function getEcoIndexGrade", function() {
-    
-    beforeEach(function() {	
-    });
-	
     it(" 2 should return G ", function() {
       expect(getEcoIndexGrade(2)).toEqual("G");
     });
@@ -76,17 +64,9 @@ describe("ecoIndex.js", function() {
     it(" 100 should return A ", function() {
       expect(getEcoIndexGrade(100)).toEqual("A");
     });
-
-    afterEach(function() {
-    });
   });
-  
 
   describe("#function computeGreenhouseGasesEmissionfromEcoIndex", function() {
-    
-    beforeEach(function() {	
-    });
-	
     it(" 2 should return 2.96", function() {
       expect(computeGreenhouseGasesEmissionfromEcoIndex(2)).toEqual("2.96");
     });
@@ -102,17 +82,9 @@ describe("ecoIndex.js", function() {
     it(" 70 should return 1.60", function() {
       expect(computeGreenhouseGasesEmissionfromEcoIndex(70)).toEqual("1.60");
     });
-
-    afterEach(function() {
-    });
   });
-  
 
   describe("#function computeWaterConsumptionfromEcoIndex", function() {
-    
-    beforeEach(function() {	
-    });
-	
     it(" 2 should return 4.44", function() {
       expect(computeWaterConsumptionfromEcoIndex(2)).toEqual("4.44");
     });
@@ -128,11 +100,5 @@ describe("ecoIndex.js", function() {
     it(" 70 should return 2.40", function() {
       expect(computeWaterConsumptionfromEcoIndex(70)).toEqual("2.40");
     });
-
-    afterEach(function() {
-    });
   });
-
-
 });
-
