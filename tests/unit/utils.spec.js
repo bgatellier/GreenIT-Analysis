@@ -1,11 +1,26 @@
+import { describe, expect, it } from "vitest";
+import {
+    countChar,
+    getCookiesLength,
+    getImageTypeFromResource,
+    getDomainFromUrl,
+    getMinOptimisationGainsForImage,
+    getResponseHeaderFromResource,
+    hasValidCacheHeaders,
+    isCompressibleResource,
+    isFontResource,
+    isHttpRedirectCode,
+    isMinified,
+    isNetworkResource,
+    isResourceCompressed,
+    isRessourceUsingETag,
+    isStaticRessource,
+    isSvgOptimized,
+    isSvgUrl
+} from "@/entrypoints/devtools-panel/script/utils";
 
 describe("utils.js", function() {
-
     describe("#function getResponseHeaderFromResource", function() {
-
-        beforeEach(function() {
-        });
-
         it(" should return text/css", function() {
             const resource = { response: { status: 200, statusText: "", httpVersion: "http/2.0", headers: [{ name: "content-encoding", value: "gzip" }, { name: "content-type", value: "text/css" }, { name: "toto", value: "test" }] } };
             expect(getResponseHeaderFromResource(resource, "content-type")).toEqual('text/css');
@@ -20,16 +35,9 @@ describe("utils.js", function() {
             const resource = { response: { status: 200, statusText: "", httpVersion: "http/2.0", headers: [{ name: "content-encoding", value: "gzip" }, { name: "content-type", value: "text/css" }, { name: "toto", value: "test" }] } };
             expect(getResponseHeaderFromResource(resource, "inexistant-header")).toEqual('');
         });
-        afterEach(function() {
-        });
     });
 
-
     describe("#function getCookiesLength", function() {
-
-        beforeEach(function() {
-        });
-
         it(" should return 0", function() {
             const resource = { request: { httpVersion: "http/2.0", headers: [{ name: "content-encoding", value: "gzip" }, { name: "content-type", value: "text/css" }, { name: "toto", value: "test" }] } };
             expect(getCookiesLength(resource)).toEqual(0);
@@ -44,16 +52,9 @@ describe("utils.js", function() {
             const resource = { request: { httpVersion: "http/2.0", headers: [{ name: "content-encoding", value: "gzip" }, { name: "Cookie", value: "123456789y" }, { name: "toto", value: "test" }] } };
             expect(getCookiesLength(resource)).toEqual(10);
         });
-        afterEach(function() {
-        });
     });
 
-
     describe("#function isStaticRessource", function() {
-
-        beforeEach(function() {
-        });
-
         it(" text/css is static , should return true ", function() {
             const resource = { response: { status: 200, statusText: "", httpVersion: "http/2.0", headers: [{ name: "content-encoding", value: "gzip" }, { name: "content-type", value: "text/css" }, { name: "toto", value: "test" }] } };
             expect(isStaticRessource(resource)).toEqual(true);
@@ -68,16 +69,9 @@ describe("utils.js", function() {
             const resource = { response: { status: 200, statusText: "", httpVersion: "http/2.0", headers: [{ name: "content-encoding", value: "gzip" }, { name: "content-type", value: "test/test" }, { name: "toto", value: "test" }] } };
             expect(isStaticRessource(resource)).toEqual(false);
         });
-        afterEach(function() {
-        });
     });
 
-
     describe("#function isFontRessource", function() {
-
-        beforeEach(function() {
-        });
-
         it("application/font-woff is font , should return true ", function() {
             const resource = { response: { status: 200, statusText: "", httpVersion: "http/2.0", headers: [{ name: "content-encoding", value: "gzip" }, { name: "content-type", value: "application/font-woff" }, { name: "toto", value: "test" }] } };
             expect(isFontResource(resource)).toEqual(true);
@@ -112,16 +106,9 @@ describe("utils.js", function() {
             const resource = { request: { url: "http://test/test.woff2?test" }, response: { status: 200, statusText: "", httpVersion: "http/2.0", headers: [{ name: "content-encoding", value: "gzip" }, { name: "toto", value: "test" }] } };
             expect(isFontResource(resource)).toEqual(true);
         });
-
-        afterEach(function() {
-        });
     });
 
     describe("#function hasValidCacheHeaders", function() {
-
-        beforeEach(function() {
-        });
-
         it(" no cache header, should return false ", function() {
             const resource = { response: { status: 200, statusText: "", httpVersion: "http/2.0", headers: [{ name: "content-encoding", value: "gzip" }, { name: "content-type", value: "text/css" }, { name: "toto", value: "test" }] } };
             expect(hasValidCacheHeaders(resource)).toEqual(false);
@@ -137,7 +124,6 @@ describe("utils.js", function() {
             expect(hasValidCacheHeaders(resource)).toEqual(false);
         });
 
-
         it(" Cache expires in 2001, should return false", function() {
             const resource = { response: { headers: [{ name: 'Cache-Control', value: "test" }, { name: 'Expires', value: "Fri, 05 Jan 2001 18:09:48 GMT" }, { name: "content-encoding", value: "gzip" }, { name: "content-type", value: "test/test" }, { name: "toto", value: "test" }] } };
             expect(hasValidCacheHeaders(resource)).toEqual(false);
@@ -152,16 +138,9 @@ describe("utils.js", function() {
             const resource = { response: { headers: [{ name: 'Cache-Control', value: "test" }, { "name": "Date", "value": "Mon, 05 Jan 2099 18:33:56 GMT" }, { name: 'Expires', value: "Mon, 05 Jan 2099 18:09:48 GMT" }, { name: "content-encoding", value: "gzip" }, { name: "content-type", value: "test/test" }, { name: "toto", value: "test" }] } };
             expect(hasValidCacheHeaders(resource)).toEqual(false);
         });
-
-        afterEach(function() {
-        });
     });
 
     describe("#function isCompressibleResource", function() {
-
-        beforeEach(function() {
-        });
-
         it(" size is <= 150  should return false ", function() {
             const resource = { response: { content: { size: 120 }, status: 200, statusText: "", httpVersion: "http/2.0", headers: [{ name: "content-encoding", value: "gzip" }, { name: "content-type", value: "text/css" }, { name: "toto", value: "test" }] } };
             expect(isCompressibleResource(resource)).toEqual(false);
@@ -176,15 +155,9 @@ describe("utils.js", function() {
             const resource = { response: { content: { size: 2000 }, status: 200, statusText: "", httpVersion: "http/2.0", headers: [{ name: "content-encoding", value: "gzip" }, { name: "content-type", value: "test/test" }, { name: "toto", value: "test" }] } };
             expect(isCompressibleResource(resource)).toEqual(false);
         });
-        afterEach(function() {
-        });
     });
 
     describe("#function isResourceCompressed", function() {
-
-        beforeEach(function() {
-        });
-
         it(" content encoding is gzip  should return true", function() {
             const resource = { response: { content: { size: 120 }, status: 200, statusText: "", httpVersion: "http/2.0", headers: [{ name: "content-encoding", value: "gzip" }, { name: "content-type", value: "text/css" }, { name: "toto", value: "test" }] } };
             expect(isResourceCompressed(resource)).toEqual(true);
@@ -209,16 +182,9 @@ describe("utils.js", function() {
             const resource = { response: { content: { size: 2000 }, status: 200, statusText: "", httpVersion: "http/2.0", headers: [{ name: "content-type", value: "test/test" }, { name: "toto", value: "test" }] } };
             expect(isResourceCompressed(resource)).toEqual(false);
         });
-        afterEach(function() {
-        });
     });
 
-
     describe("#function isRessourceUsingETag", function() {
-
-        beforeEach(function() {
-        });
-
         it(" using etag, should return true", function() {
             const resource = { response: { content: { size: 120 }, status: 200, statusText: "", httpVersion: "http/2.0", headers: [{ name: "content-encoding", value: "gzip" }, { name: "content-type", value: "text/css" }, { name: "ETag", value: "test" }] } };
             expect(isRessourceUsingETag(resource)).toEqual(true);
@@ -233,16 +199,9 @@ describe("utils.js", function() {
             const resource = { response: { content: { size: 2000 }, status: 200, statusText: "", httpVersion: "http/2.0", headers: [{ name: "content-encoding", value: "GZIP" }, { name: "content-type", value: "image/bmp" }, { name: "toto", value: "test" }] } };
             expect(isRessourceUsingETag(resource)).toEqual(false);
         });
-        afterEach(function() {
-        });
     });
 
-
     describe("#function getDomainFromUrl", function() {
-
-        beforeEach(function() {
-        });
-
         it(" http://test should return test", function() {
             expect(getDomainFromUrl("http://test")).toEqual("test");
         });
@@ -282,17 +241,9 @@ describe("utils.js", function() {
         it(" http://test.com:100/a/b/c should return test.com", function() {
             expect(getDomainFromUrl("http://test.com:100/a/b/c")).toEqual("test.com");
         });
-
-
-        afterEach(function() {
-        });
     });
 
     describe("#function countChar", function() {
-
-        beforeEach(function() {
-        });
-
         it(" 2 a in aeat ", function() {
             expect(countChar('a', "aeat")).toEqual(2);
         });
@@ -315,37 +266,21 @@ describe("utils.js", function() {
         it(" 0 % in AeBt ", function() {
             expect(countChar('%', "AeBt")).toEqual(0);
         });
-
-        afterEach(function() {
-        });
     });
 
     describe("#function isMinified", function() {
-
         const minifiedJS = "for(c=0;c<a;++c)b[c]=e[c];return f.buffer=b} F.prototype.b=function(f,e,c){var a=this.buffer,b=this.index,g=this.f,l=a[b],m;c&&1<e&&(f=8<e?(H[f&255]<<24|H[f>>>8&255]<<16|H[f>>>16&255]<<8|H[f>>>24&255])>>32-e:H[f]>>8-e);if(8>e+g)l=l<<e|f,g+=e;else for(m=0;m<e;++m)l=l<<1|f>>e-m-1&1,8===++g&&(g=0,a[b++]=H[l],l=0,b===a.length&&(a=ga(this)));a[b]=l;this.buffer=a;this.f=g;this.index=b};F.prototype.finish=function(){var f=this.buffer,e=this.index,c;0<this.f&&(f[e]<<=8-this.f,f[e]=H[f[e]],e++);C?c=f.subarray(0,e):(f.length=e,c=f);return c}";
-
-        beforeEach(function() {
-        });
 
         it("\" var test=0;\n test++ ; \n windows.open(test)\"  is not minified", function() {
             expect(isMinified("var test=0;\n test++ ; \n windows.open(test)")).toEqual(false);
         });
 
-
         it("\"" + minifiedJS + "\"  is minified", function() {
             expect(isMinified(minifiedJS)).toEqual(true);
-        });
-
-        afterEach(function() {
         });
     });
 
     describe("#function isNetworkResource", function() {
-
-
-        beforeEach(function() {
-        });
-
         it("url is http:// should return true ", function() {
             const resource = { request: { url: "http://test", headers: [{ name: "content-encoding", value: "gzip" }, { name: "cookie", value: "12345" }, { name: "toto", value: "test" }] } };
             expect(isNetworkResource(resource)).toEqual(true);
@@ -355,17 +290,9 @@ describe("utils.js", function() {
             const resource = { request: { url: "data:test", headers: [{ name: "content-encoding", value: "gzip" }, { name: "cookie", value: "12345" }, { name: "toto", value: "test" }] } };
             expect(isNetworkResource(resource)).toEqual(false);
         });
-
-        afterEach(function() {
-        });
     });
 
-
     describe("#function isHttpRedirectCode", function() {
-
-        beforeEach(function() {
-        });
-
         it(" 301 should return true", function() {
             expect(isHttpRedirectCode(301)).toEqual(true);
         });
@@ -387,18 +314,9 @@ describe("utils.js", function() {
         it(" 404 should return false", function() {
             expect(isHttpRedirectCode(404)).toEqual(false);
         });
-
-        afterEach(function() {
-        });
     });
 
-
     describe("#function getImageTypeFromResource", function() {
-
-
-        beforeEach(function() {
-        });
-
         it("no content type , should return an empty String", function() {
             const resource = { response: { url: "http://test", headers: [{ name: "content-encoding", value: "gzip" }, { name: "toto", value: "test" }] } };
             expect(getImageTypeFromResource(resource)).toEqual("");
@@ -427,14 +345,9 @@ describe("utils.js", function() {
             const resource = { response: { url: "http://test", headers: [{ name: "content-type", value: "image/tiff" }, { name: "toto", value: "test" }] } };
             expect(getImageTypeFromResource(resource)).toEqual("tiff");
         });
-        afterEach(function() {
-        });
     });
+
     describe("#function getMinOptimisationGainsForImage", function() {
-
-        beforeEach(function() {
-        });
-
         it(" image png , pixels=5000000 and size=700000  should return 200000", function() {
             expect(getMinOptimisationGainsForImage(5000000, 700000, "png")).toEqual(200000);
         });
@@ -465,15 +378,9 @@ describe("utils.js", function() {
         it(" image jpeg pixel=20000 size=11000 should return 1000 (optimize can not go under 10K)", function() {
             expect(getMinOptimisationGainsForImage(20000, 11000, "jpeg")).toEqual(1000);
         });
-        afterEach(function() {
-        });
     });
 
     describe("#function isSvgUrl", function() {
-
-        beforeEach(function() {
-        });
-
         it(" /test/test.svg should return true ", function() {
             expect(isSvgUrl("/test/test.svg")).toEqual(true);
         });
@@ -483,16 +390,9 @@ describe("utils.js", function() {
         it(" /test/test.png should return false ", function() {
             expect(isSvgUrl("/test/test.png")).toEqual(false);
         });
-
-        afterEach(function() {
-        });
     });
 
     describe("#function isSvgOptimized", function() {
-
-        beforeEach(function() {
-        });
-
         it(" if file < 1KB   should return true", function() {
             const svg = "  <svg>  </svg>"
             expect(isSvgOptimized(svg)).toEqual(true);
@@ -507,10 +407,5 @@ describe("utils.js", function() {
             for (let i = 0; i < 100; i++) svg += " <test></test>";
             expect(isSvgOptimized(svg)).toEqual(false);
         });
-
-        afterEach(function() {
-        });
     });
-
 });
-

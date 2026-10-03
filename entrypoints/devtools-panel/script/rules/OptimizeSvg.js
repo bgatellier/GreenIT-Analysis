@@ -13,7 +13,7 @@ export function createOptimizeSvgRule() {
 
         check: function (measures, resourceContent) {
             if ((resourceContent.type === 'image') && isSvgUrl(resourceContent.url)) {
-                if (!isSvgOptimized(window.atob(resourceContent.content)))  // code is in base64 , decode base64 data with atob
+                if (!isSvgOptimized(atob(resourceContent.content)))  // code is in base64 , decode base64 data with atob
                 {
                     this.detailComment += browser.i18n.getMessage("rule_OptimizeSvg_detailComment", [resourceContent.url, String(Math.round(resourceContent.content.length / 100) / 10)]) + '<br>';
                     this.specificMeasures.totalSizeToOptimize += resourceContent.content.length;

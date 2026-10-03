@@ -1,7 +1,13 @@
-describe("Rules => PrintStyleSheet.js", function () {
+import { createPrintStyleSheetRule } from "@/entrypoints/devtools-panel/script/rules/PrintStyleSheet";
+import { RulesManager } from "@/entrypoints/devtools-panel/script/rulesManager";
+import { beforeEach, describe, expect, it } from "vitest";
 
+describe("Rules => PrintStyleSheet.js", function () {
     let rule;
+    let rulesManager;
     beforeEach(function () {
+        rulesManager = new RulesManager();
+        rulesManager.registerRules();
         rule = createPrintStyleSheetRule();
     });
 
@@ -20,10 +26,4 @@ describe("Rules => PrintStyleSheet.js", function () {
         rule.check(measures);
         expect(rule.complianceLevel).toEqual('A');
     });
-
-    afterEach(function () {
-    });
 });
-
-
-

@@ -1,5 +1,7 @@
-describe("Rules => HttpRequests.js", function() {
+import { createHttpRequestsRule } from "@/entrypoints/devtools-panel/script/rules/HttpRequests";
+import { beforeEach, describe, expect, it } from "vitest";
 
+describe("Rules => HttpRequests.js", function() {
     let rule;
     beforeEach(function() {
         rule = createHttpRequestsRule();
@@ -22,10 +24,4 @@ describe("Rules => HttpRequests.js", function() {
         rule.check(measures);
         expect(rule.complianceLevel).toEqual('C');
     });
-
-    afterEach(function() {
-    });
 });
-
-
-

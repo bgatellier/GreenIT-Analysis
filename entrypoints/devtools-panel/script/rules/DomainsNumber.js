@@ -1,3 +1,5 @@
+import { getDomainFromUrl } from "../utils";
+
 export function createDomainsNumberRule() {
   return {
     complianceLevel: "A",

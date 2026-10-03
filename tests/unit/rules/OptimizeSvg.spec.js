@@ -1,5 +1,7 @@
-describe("Rules => OptimizeSvg.js", function () {
+import { createOptimizeSvgRule } from "@/entrypoints/devtools-panel/script/rules/OptimizeSvg";
+import { beforeEach, describe, expect, it } from "vitest";
 
+describe("Rules => OptimizeSvg.js", function () {
     let rule;
     beforeEach(function () {
         rule = createOptimizeSvgRule();
@@ -20,7 +22,7 @@ describe("Rules => OptimizeSvg.js", function () {
         const resourceContent = {
             type:"image",
             url:"test.svg",
-            content:window.btoa(content)
+            content: btoa(content)
         };
         rule.check("",resourceContent);
         expect(rule.complianceLevel).toEqual('B');
@@ -32,7 +34,7 @@ describe("Rules => OptimizeSvg.js", function () {
         const resourceContent = {
             type:"image",
             url:"test.svg",
-            content:window.btoa(content)
+            content: btoa(content)
         };
 
         rule.check("",resourceContent);
@@ -45,13 +47,12 @@ describe("Rules => OptimizeSvg.js", function () {
         const resourceContent = {
             type:"image",
             url:"test.svg",
-            content:window.btoa(content)
+            content: btoa(content)
         };
         rule.check("",resourceContent);
         rule.check("",resourceContent);
         expect(rule.complianceLevel).toEqual('B');
     });
-
 
     it(" 2 svg image  , total > 20Kb , it should return C", function () {
         let content="";
@@ -59,16 +60,10 @@ describe("Rules => OptimizeSvg.js", function () {
         const resourceContent = {
             type:"image",
             url:"test.svg",
-            content:window.btoa(content)
+            content: btoa(content)
         };
         rule.check("",resourceContent);
         rule.check("",resourceContent);
         expect(rule.complianceLevel).toEqual('C');
     });
-
-    afterEach(function () {
-    });
 });
-
-
-

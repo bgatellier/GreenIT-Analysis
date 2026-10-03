@@ -1,5 +1,7 @@
-describe("Rules => DomainsNumber.js", function() {
+import { createDomainsNumberRule } from "@/entrypoints/devtools-panel/script/rules/DomainsNumber";
+import { beforeEach, describe, expect, it } from "vitest";
 
+describe("Rules => DomainsNumber.js", function() {
     let rule;
     beforeEach(function() {
         rule = createDomainsNumberRule();
