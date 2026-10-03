@@ -1,11 +1,13 @@
-describe("Rules => HttpErrorRule.js", function () {
+import { createUseHttp2Rule } from "@/entrypoints/devtools-panel/script/rules/UseHttp2";
+import { beforeEach, describe, expect, it } from "vitest";
 
+describe("Rules => UseHttp2Rule.js", function () {
     let rule;
     beforeEach(function () {
-        rule = createHttpErrorRule();
+        rule = createUseHttp2Rule();
     });
 
-    it(" 2 http requests with no error, it should return A", function () {
+    it(" 2 http requests with one HTTP/2.0 and one  HTTP/3.0 , it should return A", function () {
         const measures = {
             entries:
                 [{
@@ -20,7 +22,7 @@ describe("Rules => HttpErrorRule.js", function () {
                         request: { url: "test2" },
                         response:
                             {
-                                status: 200, statusText: "", httpVersion: "http/2.0", headers:
+                                status: 200, statusText: "", httpVersion: "http/3.0", headers:
                                     [{ name: "content-encoding", value: "gzip" }]
                             }
                     }]
@@ -29,14 +31,14 @@ describe("Rules => HttpErrorRule.js", function () {
         expect(rule.complianceLevel).toEqual('A');
     });
 
-    it(" 2 http requests with one error, it should return C", function () {
+    it(" 2 http requests with one http/1.1, it should return C", function () {
         const measures = {
             entries:
                 [{
                     request: { url: "test" },
                     response:
                         {
-                            status: 404, statusText: "", httpVersion: "http/2.0", headers:
+                            status: 404, statusText: "", httpVersion: "http/1.1", headers:
                                 [{ name: "content-encoding", value: "gzip" }]
                         }
                 },
@@ -53,15 +55,14 @@ describe("Rules => HttpErrorRule.js", function () {
         expect(rule.complianceLevel).toEqual('C');
     });
 
-
-    it(" 2 http requests with one error, it should return C", function () {
+    it(" 2 http requests with one http/1.0 it should return C", function () {
         const measures = {
             entries:
                 [{
                     request: { url: "test" },
                     response:
                         {
-                            status: 500, statusText: "", httpVersion: "http/2.0", headers:
+                            status: 500, statusText: "", httpVersion: "HTTP/1.0", headers:
                                 [{ name: "content-encoding", value: "gzip" }]
                         }
                 },
@@ -76,11 +77,5 @@ describe("Rules => HttpErrorRule.js", function () {
         };
         rule.check(measures);
         expect(rule.complianceLevel).toEqual('C');
-    });
-
-    afterEach(function () {
     });
 });
-
-
-

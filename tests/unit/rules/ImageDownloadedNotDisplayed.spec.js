@@ -1,5 +1,7 @@
-describe("Rules => ImageDownloadedNotDisplayed.js", function () {
+import { createImageDownloadedNotDisplayedRule } from "@/entrypoints/devtools-panel/script/rules/ImageDownloadedNotDisplayed";
+import { beforeEach, describe, expect, it } from "vitest";
 
+describe("Rules => ImageDownloadedNotDisplayed.js", function () {
     let rule;
     beforeEach(function () {
         rule = createImageDownloadedNotDisplayedRule();
@@ -59,10 +61,4 @@ describe("Rules => ImageDownloadedNotDisplayed.js", function () {
         rule.check(measures);
         expect(rule.complianceLevel).toEqual('C');
     });
-
-    afterEach(function () {
-    });
 });
-
-
-

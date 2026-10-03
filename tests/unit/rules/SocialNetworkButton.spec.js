@@ -1,40 +1,22 @@
-describe("Rules => CompressHttp.js", function () {
+import { createSocialNetworkButtonRule } from "@/entrypoints/devtools-panel/script/rules/SocialNetworkButton";
+import { beforeEach, describe, expect, it } from "vitest";
 
+describe("Rules => SocialNetworkButton.js", function () {
     let rule;
     beforeEach(function () {
-        rule = createCompressHttpRule();
+        rule = createSocialNetworkButtonRule();
     });
 
-    it(" 1 static ressources not compressed, it should return C", function () {
+    it(" 1 url 0 social network script, it should return A", function () {
         const measures = {
             entries:
                 [{
                     request: { url: "test" },
                     response:
                         {
-                            content: { size: 200 },
                             status: 200, statusText: "", httpVersion: "http/2.0", headers:
-                                [
-                                    { name: "content-type", value: "text/css" }]
-                        }
-                }]
-        };
-        rule.check(measures);
-        expect(rule.complianceLevel).toEqual('C');
-    });
-
-
-    it(" 1 static ressources compressed, it should return A", function () {
-        const measures = {
-            entries:
-                [{
-                    request: { url: "test" },
-                    response:
-                        {
-                            content: { size: 200 },
-                            status: 200, statusText: "", httpVersion: "http/2.0", headers:
-                                [{ name: 'content-encoding', value: "gzip" },
-                                    { name: "content-type", value: "text/css" }]
+                                [{ name: "content-encoding", value: "gzip" },
+                                    { name: "content-type", value: "text/json" }]
                         }
                 }]
         };
@@ -42,52 +24,24 @@ describe("Rules => CompressHttp.js", function () {
         expect(rule.complianceLevel).toEqual('A');
     });
 
-    it("2 static ressources not compressed, it should return C", function () {
+    it(" 3 url 0 social network script, it should return  A", function () {
         const measures = {
             entries:
                 [{
-                    request: { url: "test2" },
+                    request: { url: "www.acebook.com/test.js" },
                     response:
                         {
-                            content: { size: 200 },
                             status: 200, statusText: "", httpVersion: "http/2.0", headers:
-                                [{ name: "content-type", value: "text/css" }]
-                        }
-                },
-                    {
-                        request: { url: "test3" },
-                        response:
-                            {
-                                content: { size: 200 },
-                                status: 200, statusText: "", httpVersion: "http/2.0", headers:
-                                    [{ name: "content-type", value: "text/css" }]
-                            }
-                    }]
-        };
-        rule.check(measures);
-        expect(rule.complianceLevel).toEqual('C');
-    });
-
-    it(" 3 static ressources compressed, it should return A", function () {
-       const measures = {
-            entries:
-                [{
-                    request: { url: "test" },
-                    response:
-                        {
-                            content: { size: 200 },
-                            status: 200, statusText: "", httpVersion: "http/2.0", headers:
-                                [{ name: 'content-encoding', value: "gzip" },
+                                [{ name: "content-encoding", value: "gzip" },
                                     { name: "content-type", value: "text/css" }]
                         }
                 },
                     {
-                        request: { url: "test2" },
+                        request: { url: "http://www.gooel.fr/test2.js" },
                         response:
                             {
-                                content: { size: 200 },
                                 status: 200, statusText: "", httpVersion: "http/2.0", headers:
-                                    [{ name: 'content-encoding', value: "gzip" },
+                                    [{ name: "content-encoding", value: "gzip" },
                                         { name: "content-type", value: "text/css" }]
                             }
                     },
@@ -95,10 +49,9 @@ describe("Rules => CompressHttp.js", function () {
                         request: { url: "test3" },
                         response:
                             {
-                                content: { size: 200 },
                                 status: 200, statusText: "", httpVersion: "http/2.0", headers:
-                                    [{ name: 'content-encoding', value: "gzip" },
-                                        { name: "content-type", value: "text/css" }]
+                                    [{ name: "content-encoding", value: "gzip" },
+                                        { name: "content-type", value: "text/html" }]
                             }
                     }]
         };
@@ -106,25 +59,24 @@ describe("Rules => CompressHttp.js", function () {
         expect(rule.complianceLevel).toEqual('A');
     });
 
-    it(" 2 static ressources compressed and one not, 92% compressed,  it should return B", function () {
+    it(" 3 url , a facebook social network script, it should return  C", function () {
         const measures = {
             entries:
                 [{
-                    request: { url: "test" },
+                    request: { url: "www.acebook.com/test.js" },
                     response:
                         {
-                            content: { size:800 },
                             status: 200, statusText: "", httpVersion: "http/2.0", headers:
-                                [{ name: "content-type", value: "text/css" }]
+                                [{ name: "content-encoding", value: "gzip" },
+                                    { name: "content-type", value: "text/css" }]
                         }
                 },
                     {
-                        request: { url: "test2" },
+                        request: { url: "connect.facebook.net/sdk.js" },
                         response:
                             {
-                                content: { size: 1200 },
                                 status: 200, statusText: "", httpVersion: "http/2.0", headers:
-                                    [{ name: 'content-encoding', value: "gzip" },
+                                    [{ name: "content-encoding", value: "gzip" },
                                         { name: "content-type", value: "text/css" }]
                             }
                     },
@@ -132,46 +84,9 @@ describe("Rules => CompressHttp.js", function () {
                         request: { url: "test3" },
                         response:
                             {
-                                content: { size: 8000 },
                                 status: 200, statusText: "", httpVersion: "http/2.0", headers:
-                                    [{ name: 'content-encoding', value: "gzip" },
-                                        { name: "content-type", value: "text/css" }]
-                            }
-                    }]
-        };
-        rule.check(measures);
-        expect(rule.complianceLevel).toEqual('B');
-    });
-
-    it(" 1 static ressource compressed and two not, 50% compressed it should return C", function () {
-        const measures = {
-            entries:
-                [{
-                    request: { url: "test" },
-                    response:
-                        {
-                            content: { size: 250 },
-                            status: 200, statusText: "", httpVersion: "http/2.0", headers:
-                                [{ name: "content-type", value: "text/css" }]
-                        }
-                },
-                    {
-                        request: { url: "test2" },
-                        response:
-                            {
-                                content: { size: 250 },
-                                status: 200, statusText: "", httpVersion: "http/2.0", headers:
-                                    [{ name: "content-type", value: "text/css" }]
-                            }
-                    },
-                    {
-                        request: { url: "test3" },
-                        response:
-                            {
-                                content: { size: 500 },
-                                status: 200, statusText: "", httpVersion: "http/2.0", headers:
-                                    [{ name: 'content-encoding', value: "gzip" },
-                                        { name: "content-type", value: "text/css" }]
+                                    [{ name: "content-encoding", value: "gzip" },
+                                        { name: "content-type", value: "text/html" }]
                             }
                     }]
         };
@@ -179,9 +94,73 @@ describe("Rules => CompressHttp.js", function () {
         expect(rule.complianceLevel).toEqual('C');
     });
 
-    afterEach(function () {
+    it(" 3 url , a linkedin social network script, it should return  C", function () {
+        const measures = {
+            entries:
+                [{
+                    request: { url: "www.acebook.com/test.js" },
+                    response:
+                        {
+                            status: 200, statusText: "", httpVersion: "http/2.0", headers:
+                                [{ name: "content-encoding", value: "gzip" },
+                                    { name: "content-type", value: "text/css" }]
+                        }
+                },
+                    {
+                        request: { url: "platform.linkedin.com/in.js" },
+                        response:
+                            {
+                                status: 200, statusText: "", httpVersion: "http/2.0", headers:
+                                    [{ name: "content-encoding", value: "gzip" },
+                                        { name: "content-type", value: "text/css" }]
+                            }
+                    },
+                    {
+                        request: { url: "test3" },
+                        response:
+                            {
+                                status: 200, statusText: "", httpVersion: "http/2.0", headers:
+                                    [{ name: "content-encoding", value: "gzip" },
+                                        { name: "content-type", value: "text/html" }]
+                            }
+                    }]
+        };
+        rule.check(measures);
+        expect(rule.complianceLevel).toEqual('C');
+    });
+
+    it(" 3 url , 2 social network scripts, it should return  C", function () {
+        const measures = {
+            entries:
+                [{
+                    request: { url: "platform.twitter.com/widgets.js" },
+                    response:
+                        {
+                            status: 200, statusText: "", httpVersion: "http/2.0", headers:
+                                [{ name: "content-encoding", value: "gzip" },
+                                    { name: "content-type", value: "text/css" }]
+                        }
+                },
+                    {
+                        request: { url: "platform.linkedin.com/in.js" },
+                        response:
+                            {
+                                status: 200, statusText: "", httpVersion: "http/2.0", headers:
+                                    [{ name: "content-encoding", value: "gzip" },
+                                        { name: "content-type", value: "text/css" }]
+                            }
+                    },
+                    {
+                        request: { url: "test3" },
+                        response:
+                            {
+                                status: 200, statusText: "", httpVersion: "http/2.0", headers:
+                                    [{ name: "content-encoding", value: "gzip" },
+                                        { name: "content-type", value: "text/html" }]
+                            }
+                    }]
+        };
+        rule.check(measures);
+        expect(rule.complianceLevel).toEqual('C');
     });
 });
-
-
-

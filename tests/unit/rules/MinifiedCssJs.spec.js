@@ -1,10 +1,11 @@
-describe("Rules => MinifiedCssJs.js", function () {
+import { createMinifiedCssJsRule } from "@/entrypoints/devtools-panel/script/rules/MinifiedCssJs";
+import { beforeEach, describe, expect, it } from "vitest";
 
+describe("Rules => MinifiedCssJs.js", function () {
     let rule;
     beforeEach(function () {
         rule = createMinifiedCssJsRule();
     });
-
 
     it(" resource is not css and not js , it should return A", function () {
         let content="";
@@ -17,7 +18,6 @@ describe("Rules => MinifiedCssJs.js", function () {
         rule.check("",resourceContent);
         expect(rule.complianceLevel).toEqual('A');
     });
-
 
     it(" all css or js minified, it should return A", function () {
         let content="";
@@ -47,7 +47,6 @@ describe("Rules => MinifiedCssJs.js", function () {
         expect(rule.complianceLevel).toEqual('A');
     });
 
-
     it("  1 js is not  minified, it should return C", function () {
         let content="";
         for (let i=0;i<50;i++) {content+= "var test=2;";}
@@ -70,7 +69,6 @@ describe("Rules => MinifiedCssJs.js", function () {
         expect(rule.complianceLevel).toEqual('C');
     });
 
-
     it(" 1 css in not minified, it should return C", function () {
         let content="";
         for (let i=0;i<120;i++) {content+= "style:test;";}
@@ -92,8 +90,4 @@ describe("Rules => MinifiedCssJs.js", function () {
 
         expect(rule.complianceLevel).toEqual('C');
     });
-
 });
-
-
-
