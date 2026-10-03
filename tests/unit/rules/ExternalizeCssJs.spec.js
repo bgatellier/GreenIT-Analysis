@@ -1,5 +1,7 @@
-describe("Rules => ExternalizeCssJs.js", function () {
+import { createExternalizeCssJsRule } from "@/entrypoints/devtools-panel/script/rules/ExternalizeCssJs";
+import { beforeEach, describe, expect, it } from "vitest";
 
+describe("Rules => ExternalizeCssJs.js", function () {
     let rule;
     beforeEach(function () {
         rule = createExternalizeCssJsRule();
@@ -28,8 +30,4 @@ describe("Rules => ExternalizeCssJs.js", function () {
         rule.check(measures);
         expect(rule.complianceLevel).toEqual('C');
     });
-
 });
-
-
-

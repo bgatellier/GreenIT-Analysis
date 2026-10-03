@@ -1,5 +1,7 @@
-describe("Rules => DontResizeImageInBrowser.js", function () {
+import { createDontResizeImageInBrowserRule } from "@/entrypoints/devtools-panel/script/rules/DontResizeImageInBrowser";
+import { beforeEach, describe, expect, expect, it } from "vitest";
 
+describe("Rules => DontResizeImageInBrowser.js", function () {
     let rule;
     beforeEach(function () {
         rule = createDontResizeImageInBrowserRule();
@@ -93,10 +95,4 @@ describe("Rules => DontResizeImageInBrowser.js", function () {
         rule.check(measures);
         expect(rule.complianceLevel).toEqual('C');
     });
-
-    afterEach(function () {
-    });
 });
-
-
-
