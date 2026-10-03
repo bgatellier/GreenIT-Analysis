@@ -13,9 +13,12 @@
     "zip:firefox": "wxt zip -b firefox",
     "compile": "tsc --noEmit",
     "test:unit": "vitest",
-    "postinstall": "wxt prepare"
+    "test:e2e": "playwright test",
+    "postinstall": "wxt prepare && playwright install"
   },
   "devDependencies": {
+    "@playwright/test": "^1.63.0",
+    "playwright": "^1.63.0",
     "typescript": "^7.0.2",
     "vite": "^8.1.5",
     "vitest": "^5.0.3",
