@@ -230,7 +230,7 @@ export function getDomainFromUrl(url) {
 /**
 * Count character occurences in the given string
 */
-function countChar(char, str) {
+export function countChar(char, str) {
     let total = 0;
     str.split("").forEach(curr => {
         if (curr === char) total++;
