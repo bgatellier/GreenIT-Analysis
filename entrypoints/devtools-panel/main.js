@@ -108,7 +108,7 @@ function setUnsupportedRuleAnalyse(ruleId) {
 
 function refreshUI() {
   const measures = measuresAcquisition.getMeasures();
-  document.getElementById("ecoIndexView").hidden = false;
+  document.getElementById("ecoIndexView").removeAttribute('hidden');
   document.getElementById("requestNumber").innerHTML = measures.nbRequest;
 
   if (measures.responsesSizeUncompress != 0) document.getElementById("responsesSize").innerHTML = Math.round(measures.responsesSize / 1000) + " (" + Math.round(measures.responsesSizeUncompress / 1000) + ")";
