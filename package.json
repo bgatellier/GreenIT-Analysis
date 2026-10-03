@@ -2,7 +2,7 @@
   "name": "greenit-analysis",
   "description": "Quantify the environmental impacts of a complete user journey, even behind a firewall and/or application authentication.",
   "private": true,
-  "version": "0.0.0",
+  "version": "3.2.0",
   "type": "module",
   "scripts": {
     "dev": "wxt",
