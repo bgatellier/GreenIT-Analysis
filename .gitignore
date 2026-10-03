@@ -7,6 +7,8 @@ node_modules
 .output
 stats.html
 stats-*.json
+test-results/
+playwright-report/
 .wxt
 web-ext.config.ts
 
