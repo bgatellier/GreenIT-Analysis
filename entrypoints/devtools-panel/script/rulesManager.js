@@ -1,5 +1,5 @@
 /*
- *  Copyright (C) 2019  didierfred@gmail.com 
+ *  Copyright (C) 2019  didierfred@gmail.com
  *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU Affero General Public License as published
@@ -34,23 +34,32 @@ import { createUseHttp2Rule } from "./rules/UseHttp2";
 import { createUseStandardTypefacesRule } from "./rules/UseStandardTypefaces";
 
 export function RulesManager() {
-  let rulesId = [];
-  let rulesChecker = new Map();
-  let eventListeners = new Map();
-  let notCompatibleRules = [];
+  const rulesId = [];
+  const rulesChecker = new Map();
+  const eventListeners = new Map();
+  const notCompatibleRules = [];
   eventListeners.set("harReceived", []);
   eventListeners.set("frameMeasuresReceived", []);
   eventListeners.set("resourceContentReceived", []);
 
-  this.registerRules = function() {
-    this.registerRule(createAddExpiresOrCacheControlHeadersRule(), "harReceived");
+  this.registerRules = function () {
+    this.registerRule(
+      createAddExpiresOrCacheControlHeadersRule(),
+      "harReceived",
+    );
     this.registerRule(createCompressHttpRule(), "harReceived");
     this.registerRule(createDomainsNumberRule(), "harReceived");
-    this.registerRule(createDontResizeImageInBrowserRule(), "frameMeasuresReceived");
+    this.registerRule(
+      createDontResizeImageInBrowserRule(),
+      "frameMeasuresReceived",
+    );
     this.registerRule(createExternalizeCssJsRule(), "frameMeasuresReceived");
     this.registerRule(createHttpErrorRule(), "harReceived");
     this.registerRule(createHttpRequestsRule(), "harReceived");
-    this.registerRule(createImageDownloadedNotDisplayedRule(), "frameMeasuresReceived");
+    this.registerRule(
+      createImageDownloadedNotDisplayedRule(),
+      "frameMeasuresReceived",
+    );
     this.registerRule(createMinifiedCssJsRule(), "resourceContentReceived");
     this.registerRule(createNoCookieForStaticRessourcesRule(), "harReceived");
     this.registerRule(createNoRedirectRule(), "harReceived");
@@ -61,72 +70,66 @@ export function RulesManager() {
     this.registerRule(createStyleSheetsRule(), "harReceived");
     this.registerRule(createUseHttp2Rule(), "harReceived");
     this.registerRule(createUseStandardTypefacesRule(), "harReceived");
-  }
+  };
 
-  this.registerRule = function (ruleChecker, eventListener) {
+  this.registerRule = (ruleChecker, eventListener) => {
     rulesId.push(ruleChecker.id);
-    if ((eventListener==="resourceContentReceived") && ((!browser.devtools) || (!browser.devtools.inspectedWindow.getResources))) notCompatibleRules.push(ruleChecker.id);
+    if (
+      eventListener === "resourceContentReceived" &&
+      (!browser.devtools || !browser.devtools.inspectedWindow.getResources)
+    )
+      notCompatibleRules.push(ruleChecker.id);
     else {
       rulesChecker.set(ruleChecker.id, ruleChecker);
-      let event = eventListeners.get(eventListener);
+      const event = eventListeners.get(eventListener);
       if (event) event.push(ruleChecker.id);
     }
-  }
+  };
 
-  this.getRulesId = function () {
-    return rulesId;
-  }
+  this.getRulesId = () => rulesId;
 
-  this.getRulesNotCompatibleWithCurrentBrowser = function () {
-    return notCompatibleRules;
+  this.getRulesNotCompatibleWithCurrentBrowser = () => notCompatibleRules;
 
-  }
-
-  this.getNewRulesChecker = function () {
-    return new RulesChecker();
-  }
+  this.getNewRulesChecker = () => new RulesChecker();
 
   function RulesChecker() {
-    let rules = new Map();
+    const rules = new Map();
     rulesChecker.forEach((ruleChecker, ruleId) => {
-      let ruleCheckerInstance = Object.create(ruleChecker)
+      const ruleCheckerInstance = Object.create(ruleChecker);
       // for certain rules need an initialization , method not implemented in all rules
       if (ruleCheckerInstance.initialize) ruleCheckerInstance.initialize();
       rules.set(ruleId, ruleCheckerInstance);
     });
 
     this.sendEvent = function (event, measures, resource) {
-
       const eventListener = eventListeners.get(event);
       if (eventListener) {
-        eventListener.forEach(ruleID => {
+        eventListener.forEach((ruleID) => {
           this.checkRule(ruleID, measures, resource);
 
-        // not used yet , see https://github.com/cnumr/GreenIT-Analysis/pull/22
-        //  this.manageExport(ruleID, measures); 
+          // not used yet , see https://github.com/cnumr/GreenIT-Analysis/pull/22
+          //  this.manageExport(ruleID, measures);
         });
       }
-    }
+    };
 
-    this.checkRule = function (rule, measures, resource) {
+    this.checkRule = (rule, measures, resource) => {
       rules.get(rule).check(measures, resource);
-    }
+    };
 
-    this.manageExport = function (rule, measures) {
-      let myRule = rules.get(rule); 
+    this.manageExport = (rule, measures) => {
+      const myRule = rules.get(rule);
       measures.bestPracticeDetails[rule] = {};
       measures.bestPracticeDetails[rule].comment = myRule.comment;
       measures.bestPracticeDetails[rule].detailComment = myRule.detailComment;
-      measures.bestPracticeDetails[rule].complianceLevel = myRule.complianceLevel;
-      measures.bestPracticeDetails[rule].specificMeasures = myRule.getSpecificMeasures();
-    }
+      measures.bestPracticeDetails[rule].complianceLevel =
+        myRule.complianceLevel;
+      measures.bestPracticeDetails[rule].specificMeasures =
+        myRule.getSpecificMeasures();
+    };
 
-    this.getRule = function (rule) {
-      return rules.get(rule);
-    }
+    this.getRule = (rule) => rules.get(rule);
 
-    this.getAllRules = function () {
-      return rules;
-    }
+    this.getAllRules = () => rules;
   }
 }

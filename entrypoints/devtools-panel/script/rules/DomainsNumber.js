@@ -14,14 +14,14 @@ export function createDomainsNumberRule() {
       this.specificMeasures.domains = [];
       if (measures.entries.length)
         measures.entries.forEach((entry) => {
-          let domain = getDomainFromUrl(entry.request.url);
+          const domain = getDomainFromUrl(entry.request.url);
           if (this.specificMeasures.domains.indexOf(domain) === -1) {
             this.specificMeasures.domains.push(domain);
           }
         });
       if (this.specificMeasures.domains.length > 5) this.complianceLevel = "C";
       this.specificMeasures.domains.forEach((domain) => {
-        this.detailComment += domain + "<br>";
+        this.detailComment += `${domain}<br>`;
       });
 
       this.comment = browser.i18n.getMessage(
@@ -35,4 +35,3 @@ export function createDomainsNumberRule() {
     },
   };
 }
-

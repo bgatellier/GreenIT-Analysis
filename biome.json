@@ -6,7 +6,15 @@
     "useIgnoreFile": true
   },
   "files": {
-    "ignoreUnknown": false
+    "ignoreUnknown": false,
+    "includes": [
+      "src/**/*",
+      "tests/**/*",
+      "!tests/e2e/test_page.html",
+      "!tests/manual/**/*",
+      "!**/*.min.css",
+      "!**/*.min.js"
+    ]
   },
   "formatter": {
     "enabled": true,

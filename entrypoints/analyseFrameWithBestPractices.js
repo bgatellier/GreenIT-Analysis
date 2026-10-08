@@ -67,7 +67,7 @@ export default defineUnlistedScript(() => {
   }
 
   function getInlineStyleSheetsNumber() {
-    let styleSheetsArray = Array.from(document.styleSheets);
+    const styleSheetsArray = Array.from(document.styleSheets);
     let inlineStyleSheetsNumber = 0;
     styleSheetsArray.forEach((styleSheet) => {
       try {
@@ -75,28 +75,30 @@ export default defineUnlistedScript(() => {
         const isSvgStyleSheet = styleSheet.ownerNode instanceof SVGStyleElement;
         if (!styleSheet.href && !isSvgStyleSheet) inlineStyleSheetsNumber++;
       } catch (err) {
-        console.log("GREENIT-ANALYSIS ERROR ," + err.name + " = " + err.message);
-        console.log("GREENIT-ANALYSIS ERROR " + err.stack);
+        console.log(
+          `GREENIT-ANALYSIS ERROR ,${err.name} = ${err.message}`,
+        );
+        console.log(`GREENIT-ANALYSIS ERROR ${err.stack}`);
       }
     });
     return inlineStyleSheetsNumber;
   }
 
   function getInlineJsScript() {
-    let scriptArray = Array.from(document.scripts);
+    const scriptArray = Array.from(document.scripts);
     let scriptText = "";
     scriptArray.forEach((script) => {
-      let isJSON = String(script.type) === "application/ld+json"; // Exclude type="application/ld+json" from parsing js analyse
-      if (script.text.length > 0 && !isJSON) scriptText += "\n" + script.text;
+      const isJSON = String(script.type) === "application/ld+json"; // Exclude type="application/ld+json" from parsing js analyse
+      if (script.text.length > 0 && !isJSON) scriptText += `\n${script.text}`;
     });
     return scriptText;
   }
 
   function getInlineJsScriptsNumber() {
-    let scriptArray = Array.from(document.scripts);
+    const scriptArray = Array.from(document.scripts);
     let inlineScriptNumber = 0;
     scriptArray.forEach((script) => {
-      let isJSON = String(script.type) === "application/ld+json"; // Exclude type="application/ld+json" from count
+      const isJSON = String(script.type) === "application/ld+json"; // Exclude type="application/ld+json" from count
       if (script.text.length > 0 && !isJSON) inlineScriptNumber++;
     });
     return inlineScriptNumber;
@@ -104,7 +106,7 @@ export default defineUnlistedScript(() => {
 
   function getImagesResizedInBrowser() {
     const imgArray = Array.from(document.querySelectorAll("img"));
-    let imagesResized = [];
+    const imagesResized = [];
     imgArray.forEach((img) => {
       if (
         img.clientWidth < img.naturalWidth ||

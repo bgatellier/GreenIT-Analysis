@@ -1,42 +1,42 @@
 .note {
-    display:inline-block;
-    width:24px;
-    height:24px;
-    text-align:center;
-    border-radius:50%;
-    background-color:#f00;          
-    font-size: 18px;
-    line-height: 22px;
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  text-align: center;
+  border-radius: 50%;
+  background-color: #f00;
+  font-size: 18px;
+  line-height: 22px;
 }
 
 .note.A {
-    background-color:#349A47;
-    color:#fff;
+  background-color: #349a47;
+  color: #fff;
 }
 
 .note.B {
-    background-color:#51B84B;
-    color:#fff;
+  background-color: #51b84b;
+  color: #fff;
 }
 
 .note.C {
-    background-color:#CADB2A
+  background-color: #cadb2a;
 }
 
 .note.D {
-    background-color:#F6EB15
+  background-color: #f6eb15;
 }
 
 .note.E {
-    background-color:#FECD06
+  background-color: #fecd06;
 }
 
 .note.F {
-    background-color:#F99839;
-    color:#fff;
+  background-color: #f99839;
+  color: #fff;
 }
 
 .note.G {
-    background-color:#ED2124;
-    color:#fff;
+  background-color: #ed2124;
+  color: #fff;
 }

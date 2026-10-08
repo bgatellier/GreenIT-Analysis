@@ -1,5 +1,5 @@
 import { resolve } from "node:path";
-import { test, expect } from "./fixtures";
+import { expect, test } from "./fixtures";
 import { openDevTools } from "./openDevTools";
 
 test("Should analyse test_page.html", async ({ context, extensionId }) => {
@@ -7,7 +7,7 @@ test("Should analyse test_page.html", async ({ context, extensionId }) => {
   const scenario = await openDevTools(testPageUrl, context, extensionId);
 
   const results = await scenario.triggerAnalysis();
-  
+
   // should return 22 = 20 element + 2 svg images
   expect(results.domSize).toBe(22);
   expect(results.ecoIndex).toBeCloseTo(95.81, 0);

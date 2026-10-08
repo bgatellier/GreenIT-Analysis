@@ -12,7 +12,7 @@ export function createHttpRequestsRule() {
       this.specificMeasures.nbRequest = measures.nbRequest;
       if (measures.entries.length)
         measures.entries.forEach((entry) => {
-          this.detailComment += entry.request.url + "<br>";
+          this.detailComment += `${entry.request.url}<br>`;
         });
       if (this.specificMeasures.nbRequest > 40) this.complianceLevel = "C";
       this.comment = browser.i18n.getMessage(
@@ -26,4 +26,3 @@ export function createHttpRequestsRule() {
     },
   };
 }
-
