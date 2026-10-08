@@ -17,6 +17,7 @@
     "postinstall": "wxt prepare"
   },
   "devDependencies": {
+    "@biomejs/biome": "2.5.15",
     "@playwright/test": "^1.63.0",
     "playwright": "^1.63.0",
     "typescript": "^7.0.2",
