@@ -42,7 +42,7 @@ Si un mainteneur vous demande de "rebaser" votre PR, cela signifie que beaucoup 
 
 Avant de commencer, assurez-vous d'avoir installé les éléments suivants :
 
-- [Mise](https://mise.jdx.dev/) - gestionnaire de versions, de dépendances et de tâches (gère Node.js et pnpm automatiquement)
+- [Mise](https://mise.jdx.dev/) - gestionnaire de versions, de dépendances et de tâches (gère Bun)
 - [Git](https://git-scm.com/)
 
 ### Configuration du développement local
@@ -60,7 +60,7 @@ Avant de commencer, assurez-vous d'avoir installé les éléments suivants :
 
 3. **Installer les dépendances**
    
-   Ce projet utilise **Mise** pour gérer les versions de Node.js et pnpm :
+   Ce projet utilise **Mise** pour gérer les versions de Bun :
    
    ```bash
    mise install
