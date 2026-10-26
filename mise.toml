@@ -3,7 +3,7 @@ experimental = true
 lockfile = true
 
 [tools]
-bun = "1.4.4"
+bun = "1.4"
 
 [deps.bun]
 auto = true
